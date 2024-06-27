@@ -11,23 +11,23 @@ function Get-IntuneDevice {
 
     switch ($true) {
         { $PSCmdlet.MyInvocation.BoundParameters.Values.EndsWith('*') -and $PSCmdlet.MyInvocation.BoundParameters.Values.StartsWith('*') } {
-            $Filter = "`$filter=contains($($PSCmdlet.MyInvocation.BoundParameters.Keys),'$($PSCmdlet.MyInvocation.BoundParameters.Values -replace '\*')')"
+            $filter = "`$filter=contains($($PSCmdlet.MyInvocation.BoundParameters.Keys),'$($PSCmdlet.MyInvocation.BoundParameters.Values -replace '\*')')"
             continue
         }
         { $PSCmdlet.MyInvocation.BoundParameters.Values.EndsWith('*') } { 
-            $Filter = "`$filter=startswith($($PSCmdlet.MyInvocation.BoundParameters.Keys),'$($PSCmdlet.MyInvocation.BoundParameters.Values -replace '\*')')"
+            $filter = "`$filter=startswith($($PSCmdlet.MyInvocation.BoundParameters.Keys),'$($PSCmdlet.MyInvocation.BoundParameters.Values -replace '\*')')"
             continue
         }
         { $PSCmdlet.MyInvocation.BoundParameters.Values.StartsWith('*') } {
-            $Filter = "`$filter=endswith($($PSCmdlet.MyInvocation.BoundParameters.Keys),'$($PSCmdlet.MyInvocation.BoundParameters.Values -replace '\*')')"
+            $filter = "`$filter=endswith($($PSCmdlet.MyInvocation.BoundParameters.Keys),'$($PSCmdlet.MyInvocation.BoundParameters.Values -replace '\*')')"
             continue
         }
         { $null -ne $PSCmdlet.MyInvocation.BoundParameters.Values } {
-            $Filter = "`$filter=$($PSCmdlet.MyInvocation.BoundParameters.Keys) eq '$($PSCmdlet.MyInvocation.BoundParameters.Values)'"
+            $filter = "`$filter=$($PSCmdlet.MyInvocation.BoundParameters.Keys) eq '$($PSCmdlet.MyInvocation.BoundParameters.Values)'"
         }
     }
     
-    $intuneDevices = Invoke-MgGraphRequest -Method GET "https://graph.microsoft.com/beta/deviceManagement/managedDevices?$Filter"
+    $intuneDevices = Invoke-MgGraphRequest -Method GET "https://graph.microsoft.com/beta/deviceManagement/managedDevices?$filter"
 
     switch ($true) {
         { $intuneDevices.value.Count -gt 0 } {
