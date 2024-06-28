@@ -44,11 +44,11 @@ function Get-IntuneDevice {
 
             continue
         }
-        { $loopCounter -ge 10 } {
-            Write-Host "Retry limit reached $loopCounter with no success"
-
-            $retVal = 'Retry limit reached'
-        }
+        # { $loopCounter -ge 10 } {
+        #    Write-Host "Retry limit reached $loopCounter with no success"
+        #
+        #    $retVal = 'Retry limit reached'
+        # }
     }
     
     return $retVal
